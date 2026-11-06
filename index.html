@@ -3,11 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Maneki Neko Coin — 8,888 Lucky Cats on BNB Chain (Preview)</title>
-<meta name="description" content="Maneki Neko Coin preview: 8,888 lucky cats on BNB Chain. First mint free, then 0.001 BNB, max 10 per wallet, +120,000 MNC per paid mint. Preview only — mint is disabled.">
-<meta property="og:title" content="Maneki Neko Coin — 8,888 Lucky Cats (Preview)">
-<meta property="og:description" content="First mint free, then 0.001 BNB. Max 10 per wallet. +120,000 MNC per paid mint. Preview only — mint is disabled.">
-<meta property="og:image" content="assets/hero.jpg">
+<title>Maneki Neko Coin — 8,888 Lucky Cats on BNB Chain</title>
+<meta name="description" content="Maneki Neko Coin is live on BNB Chain: 8,888 lucky cats. First mint free, then 0.001 BNB, max 10 per wallet, +120,000 MNC (coineko bonus token) per paid mint.">
+<meta property="og:title" content="Maneki Neko Coin — 8,888 Lucky Cats — MINT IS LIVE">
+<meta property="og:description" content="First mint free, then 0.001 BNB. Max 10 per wallet. +120,000 MNC per paid mint. Live on BNB Chain.">
+<meta property="og:url" content="https://coineko.fun/">
+<meta property="og:image" content="https://coineko.fun/assets/hero.jpg">
+<!--
+  LIVE-READY build — flip-live file, NOT the pre-launch draft.
+  Contract addresses below are PREDICTED (CREATE2 deterministic proxy, salt 0).
+  PREDICTED — ganti dengan alamat asli setelah deploy bila berbeda.
+  NFT (Maneki Neko Coin, BEP-721): 0x128eAC869659E263d8483f70245467E2501FF4e1
+  Token (coineko, BEP-20):         0xCa2d2797FDBE84FC3347c2F95Cc28650726c17E4
+  Owner wallet: 0x36F3D56eAD5D1D6C2434F94DeFcEF732C5C3CbD2
+  Verify both addresses on BscScan after deploy BEFORE pointing coineko.fun here.
+  NOTE: the NFT and the bonus token share the ticker MNC but are two different
+  contracts. The page always labels them separately: "Maneki Neko Coin NFT (MNC)"
+  vs "coineko bonus token (MNC)".
+-->
 <style>
 :root{--gold:#d4af37;--gold2:#f5c542;--bg:#0a0908;--card:#171310;--line:#2e2417;--txt:#f3ead3;--mut:#b8a67e}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -22,9 +35,12 @@ header nav{display:flex;gap:14px;margin-left:auto;overflow-x:auto;scrollbar-widt
 header nav a{color:var(--txt);text-decoration:none;font-size:13px;white-space:nowrap}
 .btn{display:inline-block;background:var(--gold);color:#1a1206;font-weight:700;border:0;border-radius:10px;padding:10px 18px;text-decoration:none;cursor:pointer;font-size:15px}
 .btn.ghost{background:transparent;color:var(--gold2);border:1px solid var(--gold)}
+.btn.live{background:#15803d;color:#f0fdf4}
 .btn[disabled]{opacity:.45;cursor:not-allowed}
-.banner{background:#3d2b00;color:#ffe9a8;text-align:center;padding:10px 14px;font-size:14px;border-bottom:1px solid #6b4d00}
+.banner{background:#15803d;color:#f0fdf4;text-align:center;padding:10px 14px;font-size:14px;border-bottom:1px solid #22c55e}
 .banner b{color:#fff}
+.banner a{color:#fde68a}
+.banner small{display:block;font-size:12px;font-weight:400}
 main{max-width:960px;margin:0 auto;padding:0 16px 64px}
 .hero{text-align:center;padding:36px 0 8px}
 .hero img{width:min(320px,72vw);height:auto;border-radius:50%;border:3px solid var(--gold);box-shadow:0 0 60px rgba(212,175,55,.35)}
@@ -33,6 +49,7 @@ main{max-width:960px;margin:0 auto;padding:0 16px 64px}
 .hero .jp{font-size:15px;color:var(--mut);margin-top:4px}
 .pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0}
 .pill{border:1px solid var(--gold);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--gold2)}
+.pill.live{border-color:#22c55e;color:#bbf7d0}
 section{margin-top:44px;scroll-margin-top:76px}
 h2{font-family:Georgia,serif;font-size:24px;color:var(--gold2);margin-bottom:12px}
 .kicker{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);margin-bottom:4px}
@@ -63,6 +80,9 @@ footer a{color:var(--gold2)}
 pre{background:#0f0c0a;border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto;font-size:12.5px;white-space:pre-wrap}
 #checkerOut img{width:180px;height:auto;border-radius:10px;margin-top:10px}
 .note{font-size:13px;color:var(--mut)}
+.addr{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;word-break:break-all}
+.txstatus{font-size:14px;margin-top:10px}
+.txstatus a{word-break:break-all}
 @media(max-width:640px){
   header{padding:8px 12px;gap:10px}
   header .logo{font-size:16px}
@@ -80,9 +100,10 @@ pre{background:#0f0c0a;border:1px solid var(--line);border-radius:10px;padding:1
   <nav>
     <a href="#mint">Mint</a><a href="#rarity">Rarity</a><a href="#spec">Spec</a><a href="#token">Token</a><a href="#faq">FAQ</a><a href="#support">Support</a>
   </nav>
-  <a class="btn" href="#mint">Mint</a>
+  <a class="btn live" href="#mint">Mint is live</a>
 </header>
-<div class="banner"><b>PREVIEW — mint is disabled.</b> No contract is deployed yet. All prices, supply and dates below are the <b>planned</b> spec, not on-chain values. Nothing here is live or for sale yet.</div>
+<div class="banner"><b>MINT IS LIVE — Maneki Neko Coin on BNB Chain.</b> First mint free, then 0.001 BNB.
+<small>NFT: <a href="https://bscscan.com/address/0x128eAC869659E263d8483f70245467E2501FF4e1" target="_blank" rel="noopener">0x128eAC869659E263d8483f70245467E2501FF4e1</a> &middot; coineko token: <a href="https://bscscan.com/address/0xCa2d2797FDBE84FC3347c2F95Cc28650726c17E4" target="_blank" rel="noopener">0xCa2d2797FDBE84FC3347c2F95Cc28650726c17E4</a></small></div>
 <main id="top">
   <div class="hero">
     <img src="assets/hero.jpg" alt="Maneki Neko Coin — gold lucky cat coin">
@@ -90,7 +111,8 @@ pre{background:#0f0c0a;border:1px solid var(--line);border-radius:10px;padding:1
     <p class="tag">Good Fortune &bull; Prosperity &bull; Luck</p>
     <p class="jp">招財寶 &mdash; the lucky beckoning cat</p>
     <div class="pills">
-      <span class="pill">Planned supply: 8,888</span>
+      <span class="pill live">Mint is live</span>
+      <span class="pill">Supply: 8,888</span>
       <span class="pill">First mint FREE</span>
       <span class="pill">Then 0.001 BNB</span>
       <span class="pill">Max 10 / wallet</span>
@@ -100,26 +122,31 @@ pre{background:#0f0c0a;border:1px solid var(--line);border-radius:10px;padding:1
 
   <section id="mint">
     <div class="kicker">Mint &middot; BNB Chain (56) &middot; BEP-721</div>
-    <h2>Mint (preview — disabled)</h2>
+    <h2>Mint your lucky cat</h2>
     <div class="card">
       <div class="stats">
-        <div class="stat"><b>0 / 8,888</b><span>Minted (planned)</span></div>
-        <div class="stat"><b>0.001 BNB</b><span>Paid price (planned)</span></div>
-        <div class="stat"><b>Not deployed</b><span>Contract: TBD</span></div>
+        <div class="stat"><b id="mintedCount">loading&hellip;</b><span>Minted / 8,888</span></div>
+        <div class="stat"><b id="priceNow">0.001 BNB</b><span>Paid price</span></div>
+        <div class="stat"><b id="mintStatus">loading&hellip;</b><span>Mint status</span></div>
       </div>
-      <p class="muted">At launch, your agent mints with <b>mint()</b> — there is no wallet-connect button here, by design. Your wallet&rsquo;s first mint is free (0 BNB + gas); every mint after that costs exactly 0.001 BNB. Up to 10 per wallet in total. Send exactly the quoted price — overpaying reverts.</p>
+      <p class="muted">Mint is open. Connect your wallet below — Binance Agentic Wallet, MetaMask, or any injected BNB Chain wallet — and mint directly, or hand the agent prompt to your AI agent. Your wallet&rsquo;s first mint is free (0 BNB + gas); every mint after that costs exactly 0.001 BNB. Up to 10 per wallet in total. Agent-only: the wallet must sign its own transaction (msg.sender == tx.origin). Send exactly the quoted price — overpaying reverts.</p>
+      <p style="margin-top:14px">
+        <button class="btn live" type="button" id="connectBtn">Connect wallet</button>
+        <span class="muted" id="walletStatus" style="margin-left:8px">Not connected.</span>
+      </p>
       <div class="qtyrow">
         <button type="button" id="qtyMinus" aria-label="Fewer">&minus;</button>
         <b id="qtyVal">1</b>
         <button type="button" id="qtyPlus" aria-label="More">+</button>
         <span class="muted" id="qtyNote">for a wallet whose first mint is still free</span>
       </div>
-      <p><b>Planned total: <span id="qtyTotal">0 BNB</span></b> <span class="muted">(first one free, the rest 0.001 BNB each — planned price, not on-chain yet).</span></p>
-      <p style="margin-top:14px"><button class="btn" type="button" disabled>Mint — disabled in preview</button>
+      <p><b>Exact total: <span id="qtyTotal">connect your wallet for the exact price</span></b> <span class="muted">(read live from the contract with priceFor — first one free, the rest 0.001 BNB each).</span></p>
+      <p style="margin-top:14px"><button class="btn live" type="button" id="mintBtn" disabled>Connect wallet to mint</button>
       <button class="btn ghost" type="button" id="copyPromptBtn" style="margin-left:8px">Copy agent prompt</button></p>
       <p class="note" id="copyStatus"></p>
-      <h3 style="margin-top:20px;font-size:16px;color:var(--gold2)">Check a token (preview samples)</h3>
-      <p class="muted">Enter an ID from 1 to 8,888. This preview serves sample metadata for IDs <b>1, 4444, 4445, 6666, 6667, 7999, 8000, 8665, 8666, 8888</b>. The full 8,888 metadata files are generated and will go live with the launch deployment.</p>
+      <p class="txstatus" id="mintStatus2"></p>
+      <h3 style="margin-top:20px;font-size:16px;color:var(--gold2)">Check a token</h3>
+      <p class="muted">Enter an ID from 1 to 8,888. All 8,888 metadata files are live at <span class="addr">https://coineko.fun/metadata/</span>.</p>
       <p style="margin-top:10px"><input id="checkerId" type="number" min="1" max="8888" value="1" style="padding:10px;border-radius:10px;border:1px solid var(--gold);background:#0f0c0a;color:var(--txt);width:120px"> <button class="btn ghost" type="button" id="checkerBtn">Check</button></p>
       <div id="checkerOut" class="muted"></div>
     </div>
@@ -156,20 +183,22 @@ pre{background:#0f0c0a;border:1px solid var(--line);border-radius:10px;padding:1
   </section>
 
   <section id="spec">
-    <div class="kicker">Planned specification</div>
+    <div class="kicker">Specification &middot; live</div>
     <h2>Spec</h2>
     <div class="card"><table>
       <tr><td>Chain</td><td><b>BNB Chain (56)</b></td></tr>
       <tr><td>Standard</td><td><b>BEP-721 (ERC-721)</b>, sequential IDs 1&ndash;8,888</td></tr>
-      <tr><td>Supply</td><td><b>8,888</b> (planned)</td></tr>
+      <tr><td>Supply</td><td><b>8,888</b></td></tr>
       <tr><td>First mint</td><td><b>FREE</b> — 0 BNB + gas, one per wallet</td></tr>
-      <tr><td>Paid mints</td><td><b>0.001 BNB</b> fixed each (planned)</td></tr>
+      <tr><td>Paid mints</td><td><b>0.001 BNB</b> fixed each</td></tr>
       <tr><td>Max per wallet</td><td><b>10</b> total (1 free + 9 paid)</td></tr>
       <tr><td>Who can mint</td><td><b>Agent-only</b> — any wallet that signs its own transaction (msg.sender == tx.origin). No .ai Agent ID gate.</td></tr>
       <tr><td>Royalty</td><td><b>5%</b> (ERC-2981)</td></tr>
-      <tr><td>Bonus token</td><td><b>120,000 MNC</b> per paid mint, claimable on-chain</td></tr>
-      <tr><td>Mint opens</td><td><b>To be announced (UTC)</b> — no date set yet</td></tr>
-      <tr><td>Contract</td><td><b>TBD</b> — not deployed yet</td></tr>
+      <tr><td>Bonus token</td><td><b>120,000 MNC</b> per paid mint, claimable on-chain (coineko token, BEP-20)</td></tr>
+      <tr><td>Mint opens</td><td><b>Live now</b></td></tr>
+      <tr><td>NFT contract</td><td><a class="addr" href="https://bscscan.com/address/0x128eAC869659E263d8483f70245467E2501FF4e1" target="_blank" rel="noopener">0x128eAC869659E263d8483f70245467E2501FF4e1</a><br><span class="muted">Maneki Neko Coin NFT (MNC) — BEP-721</span></td></tr>
+      <tr><td>Bonus token contract</td><td><a class="addr" href="https://bscscan.com/address/0xCa2d2797FDBE84FC3347c2F95Cc28650726c17E4" target="_blank" rel="noopener">0xCa2d2797FDBE84FC3347c2F95Cc28650726c17E4</a><br><span class="muted">coineko (MNC) — BEP-20. Same ticker as the NFT, a different contract.</span></td></tr>
+      <tr><td>Base URI</td><td><span class="addr">https://coineko.fun/metadata/</span></td></tr>
       <tr><td>Official X</td><td><a href="https://x.com/coineko_" target="_blank" rel="noopener">@coineko_</a></td></tr>
     </table></div>
   </section>
@@ -178,16 +207,23 @@ pre{background:#0f0c0a;border:1px solid var(--line);border-radius:10px;padding:1
     <div class="kicker">Paid-mint bonus &middot; BEP-20</div>
     <h2>coineko (MNC) bonus token</h2>
     <div class="card">
-      <p>Every <b>paid</b> mint earns <b>120,000 MNC</b>. Free mints earn 0. The bonus is claimable on-chain whenever you like with <b>claim()</b> on the token contract.</p>
+      <p>Every <b>paid</b> mint earns <b>120,000 MNC</b>. Free mints earn 0. The bonus is claimable on-chain whenever you like with <b>claim()</b> on the coineko token contract. The bonus token is <b>coineko (MNC)</b>, a BEP-20 — it shares the ticker MNC with the Maneki Neko Coin NFT, but it is a separate contract: the NFT is the collectible, the token is the mint bonus.</p>
       <table style="margin-top:12px">
-        <tr><td>Token</td><td><b>coineko (MNC)</b> — BEP-20, contract TBD</td></tr>
-        <tr><td>Total supply</td><td><b>2,000,000,000 MNC</b> (planned)</td></tr>
+        <tr><td>Token</td><td><b>coineko (MNC)</b> — BEP-20, <a class="addr" href="https://bscscan.com/address/0xCa2d2797FDBE84FC3347c2F95Cc28650726c17E4" target="_blank" rel="noopener">0xCa2d2797FDBE84FC3347c2F95Cc28650726c17E4</a></td></tr>
+        <tr><td>Total supply</td><td><b>2,000,000,000 MNC</b></td></tr>
         <tr><td>Bonus pool</td><td><b>1,080,000,000 MNC</b> held by the token contract</td></tr>
         <tr><td>Treasury</td><td><b>920,000,000 MNC</b> to the owner at deploy</td></tr>
         <tr><td>Per paid mint</td><td><b>120,000 MNC</b></td></tr>
         <tr><td>Max per wallet</td><td><b>1,080,000 MNC</b> (9 paid mints)</td></tr>
+        <tr><td>Claim</td><td><b>claim()</b> &middot; value 0 &middot; <b>claimFor(address)</b> &middot; <b>claimable(address)</b></td></tr>
       </table>
       <p class="muted" style="margin-top:12px">Pool check: worst case 7,999 paid mints &times; 120,000 = 959,880,000 MNC, below the 1,080,000,000 pool. No staking, no tax, no further minting — the token is a mint bonus only, not a promise of value.</p>
+      <h3 style="margin-top:20px;font-size:16px;color:var(--gold2)">Claim your MNC</h3>
+      <p class="muted">Connect the wallet you minted with, then claim. Claiming costs gas only.</p>
+      <p style="margin-top:12px"><b>Claimable: <span id="claimableAmt">connect your wallet</span></b> &nbsp;·&nbsp; <b>MNC balance: <span id="mncBal">—</span></b></p>
+      <p style="margin-top:12px"><button class="btn live" type="button" id="claimBtn" disabled>Connect wallet to claim</button>
+      <button class="btn ghost" type="button" id="refreshClaimBtn" style="margin-left:8px">Refresh</button></p>
+      <p class="txstatus" id="claimStatus"></p>
     </div>
   </section>
 
@@ -195,15 +231,18 @@ pre{background:#0f0c0a;border:1px solid var(--line);border-radius:10px;padding:1
     <div class="kicker">For agents</div>
     <h2>One call, no arguments: mint()</h2>
     <div class="card">
-      <p class="muted">At launch, an AI agent (for example via Binance Agentic Wallet) mints by calling the NFT contract directly. No wallet-connect button, no .ai Agent ID needed.</p>
+      <p class="muted">An AI agent (for example via Binance Agentic Wallet) mints by calling the NFT contract directly — or use the connect-wallet button above. No .ai Agent ID needed.</p>
       <pre id="agentPrompt">Mint a Maneki Neko Coin NFT for me on BNB Chain (chainId 56).
-- Collection: Maneki Neko Coin (MNC), 8,888 supply, BEP-721.
+- Collection: Maneki Neko Coin (MNC) NFT, 8,888 supply, BEP-721.
+- NFT contract: 0x128eAC869659E263d8483f70245467E2501FF4e1
+- BscScan: https://bscscan.com/address/0x128eAC869659E263d8483f70245467E2501FF4e1
 - First mint per wallet is FREE (0 BNB + gas); each mint after that costs exactly 0.001 BNB.
 - Max 10 per wallet. Agent-only mint: mint() / mint(uint256 quantity).
-- Every paid mint earns 120,000 MNC (coineko token, claim with claim()).
-- Contract: TBD — not deployed yet. This is a PREVIEW; do not send any transaction until the launch is announced on @coineko_.
-1. When live, call mintOpen(), totalMinted(), nextPrice(MY_WALLET) and show the exact price first.
-2. Only after I confirm, call mint(QUANTITY) sending exactly the quoted price.</pre>
+- Every paid mint earns 120,000 MNC (coineko bonus token, BEP-20, 0xCa2d2797FDBE84FC3347c2F95Cc28650726c17E4 — claim with claim()).
+- Mint is LIVE.
+1. Call mintOpen(), totalMinted(), nextPrice(MY_WALLET) and show the exact price first.
+2. Only after I confirm, call mint(QUANTITY) sending exactly the quoted price (priceFor(MY_WALLET, QUANTITY)).
+3. Afterwards, report the transaction hash and my new token IDs.</pre>
       <p style="margin-top:12px"><button class="btn gold" type="button" id="copyPromptBtn2">Copy agent prompt</button> <span class="note" id="copyStatus2"></span></p>
     </div>
   </section>
@@ -211,11 +250,12 @@ pre{background:#0f0c0a;border:1px solid var(--line);border-radius:10px;padding:1
   <section id="faq">
     <div class="kicker">Questions</div>
     <h2>FAQ</h2>
-    <details><summary>Is mint open?</summary><p>No. This is a preview — no contract is deployed and the mint button is disabled. The launch date will be announced on <a href="https://x.com/coineko_" target="_blank" rel="noopener">@coineko_</a> (time in UTC).</p></details>
+    <details><summary>Is mint open?</summary><p>Yes — mint is live on BNB Chain. First mint per wallet is free, then 0.001 BNB each, up to 10 per wallet.</p></details>
     <details><summary>How does the free mint work?</summary><p>Your wallet&rsquo;s first mint is free: you pay 0 BNB, only network gas (about $0.01). Every mint after that costs exactly 0.001 BNB, up to 10 coins per wallet in total.</p></details>
     <details><summary>Who can mint?</summary><p>Any wallet that signs its own transaction — including an AI agent wallet such as Binance Agentic Wallet. Contracts cannot mint (msg.sender must equal tx.origin). There is no .ai Agent ID gate.</p></details>
-    <details><summary>What is the MNC bonus?</summary><p>Each paid mint earns 120,000 MNC (coineko, BEP-20), claimable on-chain with claim(). Free mints earn 0. Max 1,080,000 MNC per wallet. MNC is a mint bonus only — not a promise of value, yield, or returns.</p></details>
-    <details><summary>What happens to the old CoinEko (1,111)?</summary><p>It is a separate collection with its own contract, and it is not touched by this edition. When this 8,888 edition launches, it takes over coineko.fun; the old 1,111 page stays available on Vercel only.</p></details>
+    <details><summary>What is the MNC bonus?</summary><p>Each paid mint earns 120,000 MNC (coineko, BEP-20), claimable on-chain with claim(). Free mints earn 0. Max 1,080,000 MNC per wallet. MNC is a mint bonus only — not a promise of value, yield, or returns. Note: the NFT itself is also called MNC (Maneki Neko Coin) — the NFT and the bonus token share the ticker but are two different contracts.</p></details>
+    <details><summary>Why would my mint fail?</summary><p>Almost always the amount. Send exactly 0 for a wallet&rsquo;s first mint and exactly 0.001 BNB for each after; overpaying also reverts. Read priceFor(address, quantity) first. Also check the wallet has not reached 10, and that you are on BNB Chain (56).</p></details>
+    <details><summary>What happens to the old CoinEko (1,111)?</summary><p>It is a separate collection with its own contract, and it is not touched by this edition. This 8,888 edition has taken over coineko.fun; the old 1,111 page stays available on Vercel only.</p></details>
     <details><summary>Is this a Binance collaboration?</summary><p>No. Maneki Neko Coin is an independent project. Binance Agentic Wallet is one wallet option for minting, not a partnership or endorsement.</p></details>
   </section>
 
@@ -228,14 +268,14 @@ pre{background:#0f0c0a;border:1px solid var(--line);border-radius:10px;padding:1
         <a class="btn" href="https://x.com/coineko_" target="_blank" rel="noopener">Follow @coineko_</a>
         <a class="btn ghost" href="#" id="shareBtn" target="_blank" rel="noopener" style="margin-left:8px">Share on X</a>
       </p>
-      <p class="muted" style="margin-top:12px">Share text is prefilled with the planned preview spec — mint is not live yet.</p>
+      <p class="muted" style="margin-top:12px">Mint is live — share the live page: https://coineko.fun/</p>
     </div>
   </section>
 </main>
 <footer>
   <p>Maneki Neko Coin &mdash; Good Fortune &bull; Prosperity &bull; Luck &copy; 2026</p>
   <p style="margin-top:8px">NFT collectibles on BNB Chain. Nothing here is financial advice, and no returns, profits, or future value are promised. Always do your own research. Maneki Neko Coin is an independent project and is not affiliated with or endorsed by Binance.</p>
-  <p style="margin-top:8px">Preview build &mdash; contract TBD &middot; <a href="https://x.com/coineko_" target="_blank" rel="noopener">@coineko_</a></p>
+  <p style="margin-top:8px">MINT IS LIVE &middot; NFT <a class="addr" href="https://bscscan.com/address/0x128eAC869659E263d8483f70245467E2501FF4e1" target="_blank" rel="noopener">0x128eAC869659E263d8483f70245467E2501FF4e1</a> &middot; coineko <a class="addr" href="https://bscscan.com/address/0xCa2d2797FDBE84FC3347c2F95Cc28650726c17E4" target="_blank" rel="noopener">0xCa2d2797FDBE84FC3347c2F95Cc28650726c17E4</a> &middot; <a href="https://x.com/coineko_" target="_blank" rel="noopener">@coineko_</a></p>
 </footer>
 <script src="app.js"></script>
 </body>
